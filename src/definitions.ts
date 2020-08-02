@@ -6,8 +6,29 @@ declare module '@capacitor/core' {
   }
 }
 
+export interface createOptions {
+  contentTitle?: string
+  contentText?: string
+  destroyOnDone?: boolean
+}
+
+export interface setProgressOptions {
+  progress: number
+  doneTitle?: string
+  doneText?: string
+}
+
 export interface NotificationDownloadProgress {
-  echo(options: { value: string }): Promise<{ value: string }>;
-  create(): Promise<any>;
-  setProgress(progress: number): Promise<any>;
+  /**
+   * Create notification
+   * @param options {createOptions}
+   * @returns {Promise<any>}
+   */
+  create(options: createOptions): Promise<any>;
+  /**
+   * Update progressbar value
+   * @param options {setProgressOptions}
+   * @returns {Promise<any>}
+   */
+  setProgress(options: setProgressOptions): Promise<any>;
 }
