@@ -6,13 +6,13 @@ declare module '@capacitor/core' {
   }
 }
 
-export interface createOptions {
+export interface createNotificationOptions {
   contentTitle?: string
   contentText?: string
   destroyOnDone?: boolean
 }
 
-export interface setProgressOptions {
+export interface updateProgressOptions {
   progress: number
   doneTitle?: string
   doneText?: string
@@ -21,14 +21,18 @@ export interface setProgressOptions {
 export interface NotificationDownloadProgress {
   /**
    * Create notification
-   * @param options {createOptions}
+   * @param options {createNotificationOptions}
    * @returns {Promise<any>}
    */
-  create(options: createOptions): Promise<any>;
+  create(options: createNotificationOptions): Promise<any>;
   /**
    * Update progressbar value
-   * @param options {setProgressOptions}
+   * @param options {updateProgressOptions}
    * @returns {Promise<any>}
    */
-  setProgress(options: setProgressOptions): Promise<any>;
+  updateProgress(options: updateProgressOptions): Promise<any>;
+  /**
+   * Destroy the notification
+   */
+  destroy(): void
 }

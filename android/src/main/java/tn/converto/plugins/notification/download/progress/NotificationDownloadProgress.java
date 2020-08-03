@@ -24,10 +24,9 @@ import tn.converto.plugins.notification.download.progress.capacitorpluginnotific
 public class NotificationDownloadProgress extends Plugin {
 
 
-    private static final String TAG = "CMCNotification";
+    private static final String TAG = "CNDProgress";
 
     private NotificationManager notificationManager;
-    private Notification.Builder notificationBuilder;
     private NotificationManagerCompat notificationManagerCompat;
     private NotificationCompat.Builder notificationCompatBuilder;
     private int notificationId = 405;
@@ -42,7 +41,7 @@ public class NotificationDownloadProgress extends Plugin {
             CharSequence name = "capacitor-plugin-notification-download-progress";
             // The user-visible description of the channel.
             String description = "capacitor-plugin-download-progress notification";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
@@ -58,10 +57,10 @@ public class NotificationDownloadProgress extends Plugin {
             String contentTitle = call.getString("contentTitle");
             String contentText = call.getString("contentText");
             destroyOnDone = call.getBoolean("destroyOnDone");
-            if (contentTitle.isEmpty()) {
+            if (contentTitle == null) {
                 contentTitle = "Download Start";
             }
-            if (contentText.isEmpty()) {
+            if (contentText == null) {
                 contentText = "Download progress";
             }
 
@@ -86,50 +85,50 @@ public class NotificationDownloadProgress extends Plugin {
             ret.put("message", "Notification successfully created");
             call.success(ret);
         }catch(Exception e) {
-            Log.i("downloadNotif","Error create notification");
-            Log.i("downloadNotif",e.getMessage());
+            Log.i(TAG,"Error create notification");
+            Log.i(TAG, e.getMessage());
             e.printStackTrace();
             call.reject("Error when create notification");
         }
     }
 
     @PluginMethod
-    public void setProgress(PluginCall call) {
+    public void updateProgress(PluginCall call) {
         try {
             Context context = getContext();
             //Update notification information:
             int progress = call.getInt("progress");
-            notificationCompatBuilder.setProgress(100, progress, false);
+            notificationCompatBuilder.setProgress(100, progress, false)
+                                    .setContentText(progress+"%");
 
             //Send the notification:
             notificationManagerCompat = notificationManagerCompat.from(context);
             notificationManagerCompat.notify(notificationId, notificationCompatBuilder.build());
-
-            if (progress == 100) {
+            if (progress >= 100) {
                 JSObject ret = new JSObject();
                 ret.put("message", "Download complete");
 
-                String doneTitle = call.getString("contentTitle");
-                String doneText = call.getString("contentText");
-                if (doneTitle.isEmpty()) {
+                String doneTitle = call.getString("doneTitle");
+                String doneText = call.getString("doneText");
+                if (doneTitle == null) {
                     doneTitle = "Download complete";
                 }
-                if (doneText.isEmpty()) {
+                if (doneText == null) {
                     doneText = "100%";
                 }
-                if (destroyOnDone == true) {
-                    notificationManagerCompat.cancel(notificationId);
-                }else {
+                if (destroyOnDone == null || destroyOnDone == false) {
                     notificationCompatBuilder.setContentTitle(doneTitle)
                             .setContentText(doneText)
                             .setProgress(0,0,false);
                     notificationManagerCompat.notify(notificationId, notificationCompatBuilder.build());
+                } else {
+                    notificationManagerCompat.cancel(notificationId);
                 }
                 call.success(ret);
             }
         }catch(Exception e) {
-            Log.i("progress","Error update progress");
-            Log.i("progress",e.getMessage());
+            Log.i(TAG,"Error update progress");
+            Log.i(TAG, e.getMessage());
             e.printStackTrace();
             call.reject("Error when update progress bar " + e.getMessage());
         }
