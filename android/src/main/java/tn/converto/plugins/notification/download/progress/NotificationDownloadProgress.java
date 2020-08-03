@@ -133,4 +133,19 @@ public class NotificationDownloadProgress extends Plugin {
             call.reject("Error when update progress bar " + e.getMessage());
         }
     }
+
+    @PluginMethod
+    public void destroy(PluginCall call) {
+        try {
+            notificationManagerCompat.cancel(notificationId);
+            JSObject ret = new JSObject();
+            ret.put("message", "Notification successfully destroyed");
+            call.success(ret);
+        }catch(Exception e) {
+            Log.i(TAG,"Error destroy notification");
+            Log.i(TAG, e.getMessage());
+            e.printStackTrace();
+            call.reject("Error when destroy notification");
+        }
+    }
 }
