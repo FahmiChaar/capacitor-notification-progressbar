@@ -28,7 +28,7 @@ And add Plugin class to init method
 - add(NotificationDownloadProgress.class);
 
 ### Example
-```
+```java
 import tn.converto.plugins.notification.download.progress.NotificationDownloadProgress;
 
 public class MainActivity extends BridgeActivity {
@@ -48,7 +48,7 @@ public class MainActivity extends BridgeActivity {
 
 ## Importing the plugin
 
-```
+```javascript
 import { Plugins } from '@capacitor/core';
 const { NotificationDownloadProgress } = Plugins
 ```
@@ -56,7 +56,7 @@ const { NotificationDownloadProgress } = Plugins
 ## Methods
 - Create the notification
 
-```
+```javascript
 NotificationDownloadProgress.create({
     contentTitle: 'Notification content title',
     contentText: 'Notification content text',
@@ -67,7 +67,7 @@ NotificationDownloadProgress.create({
 ## Methods
 - Create the notification
 
-```
+```javascript
 NotificationDownloadProgress.updateProgress({
     progress: 50
     doneTitle: 'Notification done title',
