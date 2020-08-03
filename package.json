@@ -1,6 +1,6 @@
 {
   "name": "capacitor-notification-progressbar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Show download progress in notification",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
