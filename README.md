@@ -4,7 +4,7 @@ Show download progress in notification
 
 ## work in progress
 
-The work for this plugin is in progress (Support Android done) try to support iOS and web (welcome to any help)
+The work for this plugin is in progress (Support Android done) try to support iOS and web (Any help is appretiated)
 
 ## Supported platforms
 
