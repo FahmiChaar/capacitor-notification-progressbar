@@ -13,7 +13,7 @@ The work for this plugin is in progress (Support Android done) try to support iO
 
 ## Installation
 
-> npm install capacitor-plugin-notification-download-progress
+> npm install capacitor-notification-progressbar
 
 ## Android
 
