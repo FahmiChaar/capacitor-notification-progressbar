@@ -9,7 +9,6 @@ The work for this plugin is in progress (Support Android done) try to support iO
 ## Supported platforms
 
 - Android
-- iOS
 
 ## Installation
 
@@ -65,11 +64,11 @@ NotificationDownloadProgress.create({
 ```
 
 ## Methods
-- Create the notification
+- Update progress
 
 ```javascript
 NotificationDownloadProgress.updateProgress({
-    progress: 50
+    progress: 50,
     doneTitle: 'Notification done title',
     doneText: 'Download complete'
 })
